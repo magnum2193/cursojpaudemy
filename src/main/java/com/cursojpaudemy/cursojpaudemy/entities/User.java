@@ -2,18 +2,24 @@ package com.cursojpaudemy.cursojpaudemy.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String email;
     private String phone;
     private String password;
+
+    @OneToMany(mappedBy = "client")    //  Esse muitos para um la na classe Order esta mapeador pelo ATRIBUTO "client"
+    private List<Order> orders = new ArrayList<>();
 
     public User() {
     }
@@ -66,6 +72,10 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,4 +90,6 @@ public class User implements Serializable {
     public int hashCode() {
         return id.hashCode();
     }
+
+
 }
