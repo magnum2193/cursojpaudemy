@@ -1,18 +1,25 @@
 package com.cursojpaudemy.cursojpaudemy.resources;
 
 import com.cursojpaudemy.cursojpaudemy.entities.User;
+import com.cursojpaudemy.cursojpaudemy.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping (value ="/users")
+@RequestMapping(value = "/users")
 public class UserResources {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
-    public ResponseEntity <User> findAll(){
-        var u = new User(1L,"Rodrigo","magnum@gmail.com","9999999","123456");
-        return ResponseEntity.ok().body(u);
+    public ResponseEntity<List<User>> findAll() {
+        var list = userService.findAll();
+        return ResponseEntity.ok().body(list);
     }
 }
